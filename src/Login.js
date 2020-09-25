@@ -18,6 +18,7 @@ function Login() {
         fetch(loginUrl).then(resp => resp.json())
             .then(data => {
                 setLoginStatus(data[0].fullName)
+                localStorage.setItem("username", data[0].fullName)
                 setAuthenticated(true)
             })
     }
