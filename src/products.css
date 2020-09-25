@@ -12,3 +12,17 @@
     line-height: 75px;
     font-size: 30px;
   }
+
+  .username{
+    float: right;
+    margin: auto;
+    right: 0;
+    position: absolute;
+  }
+
+  .totMargin{
+    margin-top:15px;
+    margin-bottom:15px;
+    margin-left:15px;
+  }
+

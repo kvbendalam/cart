@@ -3,7 +3,7 @@ import "./list.css"
 
 function List(props) {
     return (
-        <div class="flex-container">
+        <div className="flex-container">
             {props.data.map((res) => {
                 return (
                     <div className="card">
