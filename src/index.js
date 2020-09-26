@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Login from "./Login"
 import Products from "./Products"
 
-
 ReactDOM.render(
   <React.StrictMode>
     <App />

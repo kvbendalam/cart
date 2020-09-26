@@ -39,7 +39,7 @@ function Login() {
                 <p className="submit">
                     <input type="submit" disabled={!validateForm()} name="commit" value="Login" /></p>
             </form>
-            {JSON.stringify(loginstatus)}
+            {/* {JSON.stringify(loginstatus)} */}
             {isAuthenticated ? (
                 <Redirect to={{ pathname: "/products", state: { username: loginstatus } }} />) : (<Redirect to="/" />)}
         </div>

@@ -9,6 +9,7 @@ function Products(props) {
     const [color, setColor] = React.useState([])
     const [brand, setBrand] = React.useState([])
     const [cart, setCart] = React.useState(0)
+    const [selectedPrice, setSelectedPrice] = React.useState("Min")
 
     function getProducts() {
         const listUrl = "https://xebiascart.herokuapp.com/products"
@@ -43,11 +44,11 @@ function Products(props) {
     var colorArr = []
     function handleColor(e) {
         list.forEach((res) => {
-            console.log(res)
-            console.log(res.colour.title)
             if (res.colour.title === e.target.value) {
                 colorArr.push(res)
                 setList(colorArr)
+            } else if (e.target.value) {
+                setList(list)
             }
         })
     }
@@ -61,6 +62,7 @@ function Products(props) {
             }
         })
     }
+
 
     useEffect(() => {
         getFilters()
@@ -92,8 +94,8 @@ function Products(props) {
                             <input className="form-control mr-sm-2 search" type="search" onChange={handleSearch} placeholder="Search" aria-label="Search" />
                         </form>
                     </div>
-                    <p className="username">{localStorage.getItem("username")}</p>
-                    <p>Cart {cart}</p>
+                    <p className="username">{localStorage.getItem("username")} </p>
+                    <p> Cart {cart}</p>
                 </nav>
             </div>
 
@@ -107,8 +109,8 @@ function Products(props) {
                                         <p className="h5">Select Prices Below</p>
                                         <div className="dropdown">
                                             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Select Price
-                                             </button>
+                                                {selectedPrice}
+                                            </button>
                                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 {res.map((price) => {
                                                     return (
@@ -127,7 +129,7 @@ function Products(props) {
                                                     {res.map((color) => {
                                                         return (
                                                             <div key={color.title}>
-                                                                <input type="checkbox" value={color.title} onChange={e => handleColor(e)} />
+                                                                <input type="checkbox" value={color.title} name="color" onChange={e => handleColor(e)} />
                                                                 <label className="form-check-label" >{color.title}</label>
                                                             </div>
 
