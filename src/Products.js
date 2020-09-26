@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import List from "./List"
 import "./products.css"
+import amazon from "./amazon.png"
 
 function Products(props) {
     const [list, setList] = React.useState([])
@@ -47,8 +48,6 @@ function Products(props) {
             if (res.colour.title === e.target.value) {
                 colorArr.push(res)
                 setList(colorArr)
-            } else if (e.target.value) {
-                setList(list)
             }
         })
     }
@@ -79,12 +78,18 @@ function Products(props) {
             })
     }
 
+    function handleCart(newValue) {
+        console.log(newValue)
+        let res = cart + Number(newValue);
+        setCart(res)
+    }
+
 
     return (
         <div>
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="#">Logo</a>
+                    <img src={amazon} className="amazon" alt="amazon" />
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -94,8 +99,12 @@ function Products(props) {
                             <input className="form-control mr-sm-2 search" type="search" onChange={handleSearch} placeholder="Search" aria-label="Search" />
                         </form>
                     </div>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                    </link>
+                    <i class="fa fa-shopping-cart" style={{ fontSize: "20px", marginBottom: "17px", marginRight: "10px" }}>
+                        <span>{cart}</span>
+                    </i>
                     <p className="username">{localStorage.getItem("username")} </p>
-                    <p> Cart {cart}</p>
                 </nav>
             </div>
 
@@ -159,7 +168,7 @@ function Products(props) {
                     </div>
                 </div>
                 <div className="col-sm-10 col-md-10 col-lg-10">
-                    <List data={list}></List>
+                    <List data={list} onChange={handleCart}></List>
                 </div>
             </div>
         </div >
