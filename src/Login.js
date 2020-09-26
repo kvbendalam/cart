@@ -17,9 +17,12 @@ function Login() {
         const loginUrl = "https://xebiascart.herokuapp.com/users?username=" + username;
         fetch(loginUrl).then(resp => resp.json())
             .then(data => {
-                setLoginStatus(data[0].fullName)
+                setLoginStatus(data[0]?.fullName)
                 localStorage.setItem("username", data[0].fullName)
                 setAuthenticated(true)
+            }).catch((e) => {
+                setAuthenticated(false)
+                console.log(e)
             })
     }
 
@@ -42,6 +45,8 @@ function Login() {
             {/* {JSON.stringify(loginstatus)} */}
             {isAuthenticated ? (
                 <Redirect to={{ pathname: "/products", state: { username: loginstatus } }} />) : (<Redirect to="/" />)}
+
+
         </div>
     )
 }
