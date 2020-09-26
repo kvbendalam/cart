@@ -10,7 +10,6 @@ function List(props) {
     return (
         <div className="flex-container">
             {props.data.map((res) => {
-                // console.log(res)
                 return (
                     <div className="card" key={res.image} >
                         <img className="card-img-top" src={res.image} alt={res.image} />
@@ -24,8 +23,8 @@ function List(props) {
                                     <p className="card-text">{res.brand}</p>
                                 </div>
                             </div>
-                            <p className="card-text">{res.price.final_price}/-</p>
-                            <a href="#" className="btn btn-primary addTocart" onClick={handleChange}>Add to Cart</a>
+                            <p className="card-text"><b>Rs.{res.price.final_price} </b><strike>{res.price.mrp}</strike>{res.discount > 0 ? (res.discount + "%") : ''}</p>
+                            <button className="btn btn-primary addTocart" onClick={handleChange}>Add to Cart</button>
                         </div>
                     </div>
                 )

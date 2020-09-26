@@ -11,12 +11,16 @@ function Products(props) {
     const [brand, setBrand] = React.useState([])
     const [cart, setCart] = React.useState(0)
     const [selectedPrice, setSelectedPrice] = React.useState("Min")
+    const [colorArr, setColorArr] = React.useState([])
+    const [brandArray, setBrandArray] = React.useState([])
+    const [filterlist, setFilterList] = React.useState(list)
 
     function getProducts() {
         const listUrl = "https://xebiascart.herokuapp.com/products"
         fetch(listUrl).then(resp => resp.json())
             .then(data => {
                 setList(data)
+                setFilterList(data)
             })
     }
 
@@ -42,31 +46,56 @@ function Products(props) {
         });
     }
 
-    var colorArr = []
     function handleColor(e) {
-        list.forEach((res) => {
-            if (res.colour.title === e.target.value) {
-                colorArr.push(res)
-                setList(colorArr)
-            }
-        })
+        if (e.target.checked === true) {
+            var colArr = colorArr;
+            colArr.push(e.target.value)
+            setColorArr(colArr)
+        } else if (e.target.checked === false) {
+            let a = colorArr.filter((res) => {
+                return res !== e.target.value
+            })
+            setColorArr(a)
+        }
+        handleColorData()
     }
 
-    var brandArr = []
-    function handleBrand(e) {
-        list.forEach((res) => {
-            if (res.brand === e.target.value) {
-                brandArr.push(res)
-                setList(brandArr)
-            }
+
+    function handleColorData() {
+        let result = list.filter((res) => {
+            return colorArr.includes(res.colour.title)
         })
+        setFilterList(result)
     }
+
+
+    function handleBrand(e) {
+        if (e.target.checked === true) {
+            var brandArr = brandArray;
+            brandArr.push(e.target.value)
+            setBrandArray(brandArr)
+        } else if (e.target.checked === false) {
+            let b = brandArray.filter((res) => {
+                return res !== e.target.value
+            })
+            setBrandArray(b)
+        }
+        handleBrandData()
+    }
+
+    function handleBrandData() {
+        let result = list.filter((res) => {
+            return brandArray.includes(res.brand)
+        })
+        setFilterList(result)
+    }
+
 
 
     useEffect(() => {
         getFilters()
         getProducts()
-    }, [])
+    })
 
     function handleSearch(event) {
         event.preventDefault();
@@ -79,7 +108,6 @@ function Products(props) {
     }
 
     function handleCart(newValue) {
-        console.log(newValue)
         let res = cart + Number(newValue);
         setCart(res)
     }
@@ -168,7 +196,7 @@ function Products(props) {
                     </div>
                 </div>
                 <div className="col-sm-10 col-md-10 col-lg-10">
-                    <List data={list} onChange={handleCart}></List>
+                    <List data={filterlist} onChange={handleCart}></List>
                 </div>
             </div>
         </div >
