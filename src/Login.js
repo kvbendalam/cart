@@ -28,7 +28,7 @@ function Login() {
 
     return (
         <div className="login">
-            <h1>Login</h1>
+            <h1>Login Page</h1>
             <form onSubmit={handleSubmit}>
                 <p><input type="text"
                     name="login"
